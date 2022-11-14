@@ -1,10 +1,11 @@
 package com.curly.common.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.curly.common.data.BasicModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,7 +19,7 @@ import lombok.Data;
 @Data
 @TableName("menu")
 @ApiModel(value="MenuEntity对象", description="")
-public class MenuEntity implements Serializable {
+public class MenuEntity extends BasicModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

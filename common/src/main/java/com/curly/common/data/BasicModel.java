@@ -1,4 +1,4 @@
-package com.curly.common.model;
+package com.curly.common.data;
 
 import lombok.Getter;
 import lombok.Setter;
