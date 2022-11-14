@@ -15,7 +15,7 @@ public enum BaseErrorEnum implements BaseErrorInfoInterface {
     REQUEST_METHOD_SUPPORT_ERROR("10001", "当前请求方法不支持！"),
     REQUEST_DATA_NULL("10002", "当前请求参数为空！"),
     USER_NOT_EXISTS("10003", "该用户不存在！"),
-    USER_INVALID("10004", "当前登录信息已失效，请重新登录 =！"),
+    USER_INVALID("10004", "当前登录信息已失效，请重新登录！"),
     PASSWORD_ERROR("10005", "密码错误！"),
     USER_NAME_LOCK("10006", "该账号已被锁定！");
 

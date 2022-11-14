@@ -8,15 +8,24 @@ import com.curly.admin.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.curly.admin.vo.GetUserVo;
 import com.curly.admin.vo.UserLoginVo;
+import com.curly.common.exception.GlobalExceptionHandler;
+import com.curly.common.exception.base.BaseErrorEnum;
+import com.curly.common.exception.base.BaseException;
 import com.curly.common.model.UserEntity;
 import com.curly.common.util.EncryptUtil;
+import com.curly.common.util.RedisUtils;
 import com.curly.common.util.TokenUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -27,19 +36,52 @@ import java.util.Date;
  * @since 2022-11-14
  */
 @Service
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements IUserService {
 
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
+    /** 锁定前次数 */
+    public static final Integer LOCKEDNUMBER = 3;
+
     @Override
     public UserLoginVo login(String userName, String passWord) {
+
+        // 判断该账户是否被锁定
+        String errorNumber;
+        if (redisUtils.get("errorNumber") != null) {
+            errorNumber = redisUtils.get("errorNumber");
+        } else {
+            errorNumber = "0";
+        }
+
+        if (Integer.parseInt(errorNumber)>=LOCKEDNUMBER) {
+            log.error(userName + "账户已被锁定");
+            throw new BaseException(BaseErrorEnum.USER_NAME_LOCK);
+        }
+
+        //查询条件
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",userName);
-        queryWrapper.eq("password",passWord);
+//        queryWrapper.eq("password",passWord);
         UserEntity user = userMapper.selectOne(queryWrapper);
         if (user == null) {
-            return null;
+            log.error(userName + "用户登录失败");
+            throw new BaseException(BaseErrorEnum.USER_NOT_EXISTS);
+        } else if (!Objects.equals(user.getPassword(),passWord)) {
+            // 密码错误
+            Integer result = Integer.parseInt(errorNumber) + 1;
+            errorNumber = result.toString();
+            if (redisUtils.get("errorNumber") != null) {
+                redisUtils.getAndSet("errorNumber", errorNumber);
+            } else {
+                redisUtils.set("errorNumber", errorNumber);
+            }
+            throw new BaseException(BaseErrorEnum.PASSWORD_ERROR);
         } else {
             UserEntity userDetailBo = new UserEntity();
             BeanUtils.copyProperties(user,userDetailBo);
@@ -47,7 +89,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> impleme
             userLoginVo.setUserDetailBo(userDetailBo);
             //包装token
             String token = TokenUtils.sign(user);
+            //token存入redis
+            redisUtils.set("token",token,30, TimeUnit.MINUTES);
             userLoginVo.setToken(token);
+            log.info(userName + "用户登录成功！");
             return userLoginVo;
         }
 

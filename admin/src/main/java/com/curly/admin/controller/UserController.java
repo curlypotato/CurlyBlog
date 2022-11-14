@@ -5,6 +5,7 @@ import com.curly.admin.service.IUserService;
 import com.curly.admin.vo.GetUserVo;
 import com.curly.common.data.BaseResponse;
 import com.curly.common.data.RespGenerator;
+import com.curly.common.exception.base.BaseErrorEnum;
 import com.curly.common.model.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,7 +23,7 @@ import java.util.HashMap;
  */
 @RestController
 //@MapperScan("com.curly.admin.mapper")
-@RequestMapping("user")
+@RequestMapping("/user")
 @Api(tags = "用户接口")
 public class UserController {
 
@@ -50,6 +51,12 @@ public class UserController {
     @PostMapping("/getUserList")
     public BaseResponse<IPage<UserEntity>> getUserList(@RequestBody GetUserVo getUserVo) {
         return RespGenerator.returnOK(userService.getUserList(getUserVo));
+    }
+
+    @ApiOperation(value = "测试：获取用户列表信息")
+    @PostMapping("/test/getUserList")
+    public BaseResponse<IPage<UserEntity>> getUserList() {
+        return RespGenerator.returnOK(BaseErrorEnum.SUCCESS);
     }
 
     @ApiOperation(value = "新增用户")
