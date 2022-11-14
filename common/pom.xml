@@ -45,23 +45,38 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>1.9.2</version>
         </dependency>
+        <!--mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.28</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
         <!--for SqlServer-->
         <!--<dependency>-->
-            <!--<groupId>com.microsoft.sqlserver</groupId>-->
-            <!--<artifactId>sqljdbc4</artifactId>-->
-            <!--<version>4.0</version>-->
+        <!--<groupId>com.microsoft.sqlserver</groupId>-->
+        <!--<artifactId>sqljdbc4</artifactId>-->
+        <!--<version>4.0</version>-->
         <!--</dependency>-->
         <!--数据库驱动依赖（匹配与自己安装的MySQL版本）-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.24</version>
-        </dependency>
-        <!--mybatis-plus-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.1</version>
         </dependency>
 
         <!-- 整合token 添加：jwt和json-->
@@ -77,16 +92,17 @@
             <artifactId>json</artifactId>
             <version>20190722</version>
         </dependency>
+
+        <!-- 加密 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>commons-codec</groupId>-->
             <!--<artifactId>commons-codec</artifactId>-->
             <!--<version>1.8</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>mybatis-plus-generator</artifactId>-->
-            <!--<version>3.4.1</version>-->
         <!--</dependency>-->
 
         <!--工具包-->

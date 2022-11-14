@@ -27,10 +27,11 @@ public class LoginController {
             @ApiImplicitParam(name = "userName", value = "用户名", paramType = "String"),
             @ApiImplicitParam(name = "passWord", value = "密码", paramType = "String")
     })
-    public BaseResponse<HashMap> login(@RequestParam(value = "userName") String userName, @RequestParam(value = "passWord") String passWord) throws JsonProcessingException {
+    public BaseResponse<HashMap> login(@RequestParam(value = "userName") String userName,
+                                       @RequestParam(value = "passWord") String passWord) throws JsonProcessingException {
         //包装token
         UserEntity user = new UserEntity();
-        user.setUserName(userName);
+        user.setUsername(userName);
         user.setPassword(passWord);
         String token= TokenUtils.sign(user);
         HashMap<String,Object> hs=new HashMap<>();

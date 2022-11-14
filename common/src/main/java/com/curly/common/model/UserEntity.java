@@ -1,5 +1,6 @@
 package com.curly.common.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.curly.common.data.BasicModel;
 import io.swagger.annotations.ApiModel;
@@ -21,18 +22,22 @@ public class UserEntity extends BasicModel {
     /**
      * 更新时间
      */
-    @ApiModelProperty(value = "更新时间")
     private Date updateTime;
     /**
      * 用户名
      */
     @ApiModelProperty(value = "用户名")
-    private String userName;
+    private String username;
     /**
      * 密码
      */
     @ApiModelProperty(value = "密码")
     private String password;
+    /**
+     * 密码
+     */
+    @ApiModelProperty(value = "加密密钥")
+    private String salt;
     /**
      * 用户性别（0：未知，1：男，2：女）
      */

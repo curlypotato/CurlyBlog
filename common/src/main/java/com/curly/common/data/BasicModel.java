@@ -1,5 +1,7 @@
 package com.curly.common.data;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,7 @@ public class BasicModel implements Serializable{
     public static final Integer IS_DELETE = 1;
 
     @Setter
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -34,7 +37,7 @@ public class BasicModel implements Serializable{
     /**
      * 是否删除：0未删除 1已删除
      */
-    private int deleted = 0;
+    private Integer deleted = 0;
 
     /**
      * 设置删除状态
