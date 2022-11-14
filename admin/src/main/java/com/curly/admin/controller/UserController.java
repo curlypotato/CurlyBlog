@@ -1,7 +1,6 @@
 package com.curly.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.curly.admin.mapper.UserMapper;
 import com.curly.admin.service.IUserService;
 import com.curly.admin.vo.GetUserVo;
 import com.curly.common.data.BaseResponse;
@@ -15,16 +14,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author broWsJle
  * @date 2022/11/13 21:33
  */
 @RestController
-@MapperScan("com.curly.admin.mapper")
+//@MapperScan("com.curly.admin.mapper")
 @RequestMapping("user")
 @Api(tags = "用户接口")
 public class UserController {

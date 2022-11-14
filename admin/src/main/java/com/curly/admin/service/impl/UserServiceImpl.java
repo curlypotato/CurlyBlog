@@ -8,7 +8,6 @@ import com.curly.admin.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.curly.admin.vo.GetUserVo;
 import com.curly.admin.vo.UserLoginVo;
-import com.curly.common.data.PageParam;
 import com.curly.common.model.UserEntity;
 import com.curly.common.util.EncryptUtil;
 import com.curly.common.util.TokenUtils;
@@ -17,9 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>

@@ -1,5 +1,7 @@
 package com.curly.common.data;
 
+import com.curly.common.exception.base.BaseErrorEnum;
+
 /**
  * @author broWsJle
  * @date 2022/11/14 14:56
@@ -40,5 +42,18 @@ public class RespGenerator {
     public static BaseResponse<Object> returnError(String message) {
         return new BaseResponse<Object>("-1", message, null);
     }
+
+    /**
+     * 调用失败（自定义）
+     *
+     * @param errorEnum
+     *            错误信息
+     * @return
+     */
+    public static BaseResponse<Object> returnError(BaseErrorEnum errorEnum) {
+        return new BaseResponse<Object>(errorEnum.getCode(), errorEnum.getMessage(), null);
+    }
+
+
 
 }
